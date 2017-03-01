@@ -4,7 +4,7 @@
   "repositories": {
     "drupal": {
       "type": "composer",
-      "url":  "https://packages.drupal.org/7"
+      "url":  "https://packages.drupal.org/8"
     }
   },
   "authors": [
@@ -14,25 +14,43 @@
     }
   ],
   "require": {
-    "composer/installers": "~1.0",
-    "derhasi/composer-preserve-paths": "0.1.*",
-    "drupal/drupal": "7.*",
+    "composer/installers": "^1.2",
+    "drupal-composer/drupal-scaffold": "^2.2",
+    "cweagans/composer-patches": "~1.0",
+    "drupal/core": "~8.0",
+    "drush/drush": "~8.0",
+    "drupal/console": "~1.0",
     "codeception/codeception": "2.2",
     "site5/phantoman": "1.1.7",
     "jakoch/phantomjs-installer": "2.1.1-p08"
   },
+  "require-dev": {
+    "behat/mink": "~1.7",
+    "behat/mink-goutte-driver": "~1.2",
+    "jcalderonzumba/gastonjs": "~1.0.2",
+    "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
+    "mikey179/vfsStream": "~1.2",
+    "phpunit/phpunit": "~4.8",
+    "symfony/css-selector": "~2.8"
+  },
   "conflict": {
-    "drupal/core": "8.*"
+    "drupal/drupal": "*"
   },
   "scripts": {
-    "post-create-project-cmd": [
-      "rm LICENSE"
+    "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+    "pre-install-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::checkComposerVersion",
+      "PhantomInstaller\\Installer::installPhantomJS"
+    ],
+    "pre-update-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
     ],
     "post-install-cmd": [
-      "PhantomInstaller\\Installer::installPhantomJS"
+       "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
     "post-update-cmd": [
-      "PhantomInstaller\\Installer::installPhantomJS"
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+        "PhantomInstaller\\Installer::installPhantomJS"
     ]
   },
   "config": {
@@ -42,20 +60,12 @@
   "prefer-stable": true,
   "extra": {
     "installer-paths": {
-      "web/": ["type:drupal-core"],
-      "web/sites/all/modules/contrib/{$name}/": ["type:drupal-module"],
-      "web/sites/all/themes/contrib/{$name}/": ["type:drupal-theme"],
-      "web/sites/all/libraries/{$name}/": ["type:drupal-library"],
-      "web/sites/all/drush/{$name}/": ["type:drupal-drush"],
-      "web/profiles/{$name}/": ["type:drupal-profile"]
-    },
-    "preserve-paths": [
-      "web/sites/all/modules/contrib",
-      "web/sites/all/themes/contrib",
-      "web/sites/all/libraries",
-      "web/sites/all/drush",
-      "web/sites/default/settings.php",
-      "web/sites/default/files"
-    ]
+      "web/core": ["type:drupal-core"],
+      "web/libraries/{$name}": ["type:drupal-library"],
+      "web/modules/contrib/{$name}": ["type:drupal-module"],
+      "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+      "web/themes/contrib/{$name}": ["type:drupal-theme"],
+      "drush/contrib/{$name}": ["type:drupal-drush"]
+    }
   }
 }
