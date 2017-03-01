@@ -7,6 +7,12 @@
       "url":  "https://packages.drupal.org/7"
     }
   },
+  "authors": [
+    {
+      "name": "Karthik Kumar D K (heykarthikwithu)",
+      "email": "heykarthikwithu@gmail.com"
+    }
+  ],
   "require": {
     "composer/installers": "~1.0",
     "derhasi/composer-preserve-paths": "0.1.*",
