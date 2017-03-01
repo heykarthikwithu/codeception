@@ -1,5 +1,5 @@
 # Codeception in Drupal
-A drupal application with codeception integration.
+A Drupal application with Codeception integration and PhantomanJS.
 
 Initially do a composer update, which would get the drupal codebase locally.
 
@@ -20,3 +20,7 @@ extensions:
             port: 4444
             suites: ['acceptance']
 ```
+
+Then run the test cases.
+
+`$ php vendor/bin/codecept run`
