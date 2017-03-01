@@ -1,4 +1,4 @@
-# Codeception in Drupal
+# Codeception in Drupal 7
 A Drupal application with Codeception integration and PhantomanJS.
 
 Initially do a composer update, which would get the drupal codebase locally.
